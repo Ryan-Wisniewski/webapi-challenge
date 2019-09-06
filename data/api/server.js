@@ -12,11 +12,12 @@ server.get('/', (req, res) => {
 
 //c
 server.post('/api', (req, res) => {
-    const { description, notes } = req.body
+    const { project_id, description, notes } = req.body
     const post = req.body
     //tried one word const incase that messed with it being a parameter.
-    if( !description || !notes ) {
-        return res.status(400).json({ error: 'Please provide description and nots'})
+    //noticed in README is wans name && description. (Update)and wrong db that would be why XD
+    if( !project_id || !description || !notes) {
+        return res.status(400).json({ error: 'Please provide correct data'})
     }
     console.log(req.body)
     //should work like this..?
