@@ -5,14 +5,30 @@ const server = express();
 
 server.use(express.json())
 
+//w
 server.get('/', (req, res) => {
     res.status(200).json({ sanity: 'check'})
 });
 
+//c
 server.post('/api', (req, res) => {
-    
+    const { description, notes } = req.body
+    const post = req.body
+    //tried one word const incase that messed with it being a parameter.
+    if( !description || !notes ) {
+        return res.status(400).json({ error: 'Please provide description and nots'})
+    }
+    console.log(req.body)
+    //should work like this..?
+    db.insert(req.body)
+        .then(post => {
+            res.status(201).json(post)
+        })
+        .catch(err => {res.status(400).json({ error: 'something weird happened. oops' })})
+
 });
 
+//w
 server.get('/api',  (req, res) => {
     const {post} = req.params
     db.get()
@@ -24,6 +40,7 @@ server.get('/api',  (req, res) => {
     })
 })
 
+//w
 server.get('/api/:id', validateId, (req, res) => {
     // const {id} = req.params
     console.log('check@@@@here',req.post)
@@ -32,6 +49,8 @@ server.get('/api/:id', validateId, (req, res) => {
     })
     // .catch(()=>res.status(500).json({error: 'It no work'}))
 
+
+//w
 server.put('/api/:id', (req, res) => {
     const { id } = req.params
     const { description, notes } = req.body
